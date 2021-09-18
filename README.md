@@ -20,8 +20,7 @@ docker stop simple-dotnet
 ### Linux
 1.  Run `run.sh`
 2.  Open [http://localhost:5000](http://localhost:5000)
-3.  `ctrl-c` to stop
-4.  Stop and remove container from powershell
+3.  Stop and remove container by running the following in another terminal
 ```
 docker stop simple-dotnet
 ```
