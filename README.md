@@ -2,7 +2,6 @@
 
 ## Prerequisites
 1.  Docker
-2.  Visual Studio Build Tools 2019 (You will need the `dotnet` command)
 
 ## Build and Run
 
@@ -12,7 +11,7 @@
 start-process run.bat
 ```
 2.  Open [http://localhost:5000](http://localhost:5000)
-3.  When done, `ctrl-c` and `Y` to terminate `cmd` shell
+3.  When done, `ctrl-c` and `y` to terminate `cmd` shell
 4.  Stop and remove container from powershell
 ```
 docker stop simple-dotnet
