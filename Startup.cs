@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,10 @@ namespace simple
 {
     public class Startup
     {
+
+        private string KerbUsername = Environment.GetEnvironmentVariable("NET_KRB5_USER") ?? "admin/admin@onbowman.com";
+        private string KerbPassword = Environment.GetEnvironmentVariable("NET_KRB5_PASS") ?? "3yp8zz2z2cIodkhgf1hWEpntCGApn3Bo";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +35,19 @@ namespace simple
             });
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate(o =>
             {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    o.EnableLdap(settings =>
+                    {
+                        settings.Domain = "onbowman.com";
+                        settings.MachineAccountName = KerbUsername;
+                        settings.MachineAccountPassword = KerbPassword;
+
+                        // Validate the settings:
+                        settings.Validate();
+                    });
+                }
+
                 o.Events = new NegotiateEvents
                 {
                     OnAuthenticated = context =>
