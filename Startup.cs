@@ -28,7 +28,28 @@ namespace simple
             {
                 options.Conventions.AuthorizePage("/Index");
             });
-            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate(o =>
+            {
+                o.Events = new NegotiateEvents
+                {
+                    OnAuthenticated = context =>
+                    {
+                        Console.WriteLine("Startup.cs:OnAuthenticated");
+                        return Task.CompletedTask;
+                    },
+                    OnChallenge = context =>
+                    {
+                        Console.WriteLine("Startup.cs:OnChallenge");
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine("Startup.cs:OnAuthenticationFailed");
+                        Console.WriteLine(context.Exception.Message);
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
             // services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
             //     .AddNegotiate(options =>
