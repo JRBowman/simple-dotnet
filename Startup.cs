@@ -45,7 +45,8 @@ namespace simple
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // No redirection needed
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
