@@ -29,6 +29,20 @@ namespace simple
                 options.Conventions.AuthorizePage("/Index");
             });
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+
+            // services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+            //     .AddNegotiate(options =>
+            //     {
+            //         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            //         {
+            //             options.EnableLdap(settings =>
+            //             {
+            //                 settings.Domain = "EXAMPLE.COM";
+            //                 settings.MachineAccountName = "machineName";
+            //                 settings.MachineAccountPassword = Configuration["Password"]
+            //             });
+            //         }
+            //     });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
